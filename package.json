@@ -6,9 +6,20 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/css-modules": "^1.0.5",
+    "@types/jest": "^29.5.14",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^22.10.2",
+    "axios": "^1.7.9",
+    "file-loader": "^6.2.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-icons": "^5.4.0",
     "react-scripts": "5.0.1",
+    "rss-parser": "^3.13.0",
+    "typescript": "^5.7.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -34,5 +45,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.13",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "resolve-url-loader": "^5.0.0",
+    "sass-loader": "^16.0.4"
   }
 }

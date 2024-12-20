@@ -1,0 +1,79 @@
+.filterMenu {
+  display: flex;
+  justify-content: space-between;
+  background: #474747;
+  padding: 1rem;
+}
+
+.filters {
+  display: flex;
+  gap: 2rem;
+}
+
+.navItems {
+  display: flex;
+  gap: 1rem;
+}
+
+.navItem {
+  height: 100%;
+  border: none;
+  background: #474747;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.selectedNavIcon {
+  height: 100%;
+  border: none;
+  background: #474747;
+  color: #ff6200;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.selector {
+  border: none;
+  background: #474747;
+  color: white;
+  outline: none;
+  font-size: 1rem;
+}
+
+.dateFilter {
+  width: 8rem;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  border: none;
+  outline: none;
+}
+
+.dropdownFilters {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.source {
+  display: flex;
+  align-items: center;
+}
+
+.sourceFilter {
+  color: white;
+  font-size: 1rem;
+  margin: 0;
+  margin-bottom: 0.2rem;
+}
+
+.settings {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .dropdownFilters {
+      gap: 0.8rem;
+      align-items: center;
+    }
+}

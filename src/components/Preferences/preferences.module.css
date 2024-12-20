@@ -1,0 +1,132 @@
+.preferences {
+  border-bottom: 2px solid #ff6200;
+  margin: 0 2rem;
+}
+
+.newsCard {
+  margin: 0.4rem 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.newsCard::-webkit-scrollbar {
+  display: none;
+}
+
+.preferenceHeader {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff6200;
+  margin: 0;
+  display: flex;
+  margin-top: 0.6rem;
+}
+
+.articleCard {
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  margin: 0.5rem 1rem 0.5rem 0rem;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  vertical-align: top;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.articleTitle {
+  margin: 0 0 0.3rem 0;
+  color: #333;
+  font-size: 0.65rem;
+  font-family: sans-serif;
+}
+
+.linkTag {
+  text-decoration: none;
+}
+
+.articleImage {
+  width: 140px;
+  border-radius: 6px;
+  max-height: 80px !important;
+}
+
+.articleDescription {
+  margin: 0 0 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.source {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.articleInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 1rem;
+}
+
+.articleSource {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgb(45, 45, 45);
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.articleDate {
+  margin: 0;
+  font-size: 0.6rem;
+  font-family: sans-serif;
+  color: #666;
+}
+
+.readMore {
+  color: #ff6200;
+  border: 1px solid #ff6200;
+  background-color: #fbe5d4;
+  padding: 6px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.8rem;
+  margin-right: 1.5rem;
+}
+
+.noArticle {
+    color: #666;
+    margin-top: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .articleCard {
+    width: 100%;
+    height: fit-content;
+    min-height: 125px !important;
+  }
+
+  .articleImage {
+    max-height: 70px !important;
+  }
+
+  .preferenceHeader {
+    font-size: 1.2rem;
+  }
+}
