@@ -2,7 +2,16 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import SearchBar from '../components/SearchBar/SearchBar';
 import { capitalizeFirstLetter, filterArticles, sortArticlesByImage } from '../utils';
 import { Loader } from '../components/Loader/Loader';
-import { CATEGORIES, COPY_RIGHTS, MAIN_HEADING, SOURCES } from '../constants';
+import {
+  CATEGORIES,
+  CLEAR_PREFERENCES,
+  COPY_RIGHTS,
+  MAIN_HEADING,
+  PREFERED_CATEGORIES,
+  PREFERED_SOURCES,
+  SELECT_PREFERENCES,
+  SOURCES,
+} from '../constants';
 import FilterMenu from '../components/FilterMenu/FilterMenu';
 import NewsFeed from './../components/Newscard/NewsCard';
 import { FaArrowLeft, FaBars, FaSearch, FaTimes } from 'react-icons/fa';
@@ -14,9 +23,10 @@ import {
   fetchNYArticles,
 } from './../services/newsAPIService';
 import { DynamicObject, Preference } from '../types';
-import styles from './homePage.module.css';
 import CustomModal from '../components/CustomModal/CustomModal';
 import Preferences from '../components/Preferences/Preferences';
+import handleStorageCheck from './../services/clearCache';
+import styles from './homePage.module.css';
 
 const HomePage = () => {
   const [articles, setArticles] = useState<DynamicObject>([]);
@@ -34,18 +44,18 @@ const HomePage = () => {
   const parsedData = initialData ? JSON.parse(initialData) : [];
   const cachedPreferences = localStorage.getItem('preferences');
   const [preferences, setPreferences] = useState<Preference>({
-      category: [],
-      source: [],
-    }
-  );
+    category: [],
+    source: [],
+  });
 
   useEffect(() => {
     if (cachedPreferences) {
       const parsedPreferences = JSON.parse(cachedPreferences);
       setPreferences(parsedPreferences);
     }
+    handleStorageCheck();
   }, []);
-  
+
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [loading, setLoading] = useState(true);
   const isMobile = window.innerWidth <= 768;
@@ -59,7 +69,8 @@ const HomePage = () => {
     }));
   };
 
-  const data = preferences &&  Array.isArray(parsedData) ? filterArticles( parsedData, preferences) : [];
+  const data =
+    preferences && Array.isArray(parsedData) ? filterArticles(parsedData, preferences) : [];
 
   const filterByDate = (articles: any[]) => {
     const { type } = filters.dateRange;
@@ -105,7 +116,7 @@ const HomePage = () => {
     try {
       let data = [] as any;
       if (filters.category === 'home') {
-        const categoryData = await fetchByCategory(CATEGORIES);
+        const categoryData = await fetchByCategory(CATEGORIES, query);
         data = data.concat(categoryData || []);
 
         const nyTimesData = await fetchNYArticles(query, filters.category, filters.source);
@@ -188,7 +199,7 @@ const HomePage = () => {
             onClick={() => setShowSearchBar(!showSearchBar)}
           />
         ) : (
-          <SearchBar onSearch={(value: any) => setQuery(value)} />
+          <SearchBar onSearch={(value: string) => setQuery(value)} />
         )}
       </header>
 
@@ -233,10 +244,10 @@ const HomePage = () => {
       <Preferences articles={data || []} />
       {loading ? <Loader /> : <NewsFeed articles={articles} />}
       {
-        <CustomModal isOpen={openPreferences} onClose={setOpenPreferences}>
-          <h2 className={styles.preferencesHeader}>Select Preferences</h2>
+        <CustomModal isOpen={openPreferences}>
+          <h2 className={styles.preferencesHeader}>{SELECT_PREFERENCES}</h2>
           <div className={styles.preferencesSection}>
-            <p className={styles.preferencesTitle}>Select Prefered Categories</p>
+            <p className={styles.preferencesTitle}>{PREFERED_CATEGORIES}</p>
             <div className={styles.preferencesOptions}>
               {CATEGORIES.map(category => {
                 if (category !== 'home') {
@@ -257,7 +268,7 @@ const HomePage = () => {
             </div>
           </div>
           <div className={styles.preferencesSection}>
-            <p className={styles.preferencesTitle}>Select Prefered Sources</p>
+            <p className={styles.preferencesTitle}>{PREFERED_SOURCES}</p>
             <div className={styles.preferencesOptions}>
               {SOURCES.map(source => {
                 if (source !== 'All Sources') {
@@ -294,7 +305,7 @@ const HomePage = () => {
                   setPreferences({
                     category: [],
                     source: [],
-                  })
+                  });
                 }
                 setOpenPreferences(false);
               }}
@@ -302,7 +313,7 @@ const HomePage = () => {
               Close
             </button>
           </div>
-          <p className={styles.clearIndication}>* Clear option will remove the data permanently</p>
+          <p className={styles.clearIndication}>{CLEAR_PREFERENCES}</p>
         </CustomModal>
       }
       <footer className={styles.footer}>

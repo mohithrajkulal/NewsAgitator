@@ -94,7 +94,7 @@ const FilterMenu = ({
     <div className={styles.filterMenu}>
       {!isMobile && (
         <div className={styles.navItems}>
-          {filters.categories.map((category: any) => (
+          {filters.categories.map((category: string) => (
             <button
               key={category}
               onClick={() => handleFilterChange('category', category)}
@@ -115,7 +115,7 @@ const FilterMenu = ({
             value={selectedFilter?.source || ''}
             className={styles.selector}
           >
-            {filters.sources.map((source: any) => (
+            {filters.sources.map((source: string) => (
               <option key={source} value={source}>
                 {source}
               </option>
@@ -132,7 +132,12 @@ const FilterMenu = ({
             <option value={item.value}>{item.label}</option>
           ))}
         </select>
-        <MdSettings className={styles.settings} size={28} color='#ff6200' onClick={() => setOpenPreferences(true)} />
+        <MdSettings
+          className={styles.settings}
+          size={28}
+          color='#ff6200'
+          onClick={() => setOpenPreferences(true)}
+        />
       </div>
     </div>
   );

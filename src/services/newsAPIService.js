@@ -15,7 +15,9 @@ export const fetchArticles = async (query, category, source) => {
     params.append('apiKey', apiKey);
     const url = `${baseUrl}/top-headlines?${params.toString()}`;
     const response = await axios.get(url);
-    const filteredData = response.data.articles?.filter(item => item?.urlToImage && item.title !== '[Removed]');
+    const filteredData = response.data.articles?.filter(
+      item => item?.urlToImage && item.title !== '[Removed]'
+    );
     return filteredData;
   } catch (error) {
     // added this to check if the limit has exceeded
@@ -24,7 +26,7 @@ export const fetchArticles = async (query, category, source) => {
   }
 };
 
-export const fetchByCategory = async categories => {
+export const fetchByCategory = async (categories, query) => {
   try {
     const apiKey = process.env.REACT_APP_NEWS_API_KEY;
     const baseUrl = process.env.REACT_APP_NEWS_BASE_URL;
@@ -38,7 +40,17 @@ export const fetchByCategory = async categories => {
     );
     const results = await Promise.all(promises);
     const allArticles = results.flat();
-    const filteredData = allArticles?.filter(item => item?.urlToImage && item.title !== '[Removed]');
+    let filteredData = allArticles?.filter(item => item?.urlToImage && item.title !== '[Removed]');
+    if (query) {
+      const lowerCaseQuery = query?.toLowerCase();
+      filteredData = filteredData.filter(
+        item =>
+          item?.title?.toLowerCase()?.includes(lowerCaseQuery) ||
+          item?.description?.toLowerCase()?.includes(lowerCaseQuery) ||
+          item?.content?.toLowerCase()?.includes(lowerCaseQuery) ||
+          item?.author?.toLowerCase()?.includes(lowerCaseQuery)
+      );
+    }
     return filteredData;
   } catch (error) {
     // added this to check if the limit has exceeded
@@ -62,7 +74,11 @@ export const fetchNYArticles = async (query, category, source) => {
       const description = item?.snippet?.toLowerCase() || '';
       const author = item?.byline?.original?.toLowerCase() || '';
       const queryLower = query.toLowerCase();
-      return title.includes(queryLower) || description.includes(queryLower) || author?.includes(queryLower);
+      return (
+        title.includes(queryLower) ||
+        description.includes(queryLower) ||
+        author?.includes(queryLower)
+      );
     });
     const filteredDocs = filteredLists.map(item => ({
       ...item,
@@ -110,12 +126,17 @@ export const fetchBBCNews = async (query, category, source) => {
         category && category !== 'home'
           ? categoryKeywords[category?.toLowerCase()]?.some(
               keyword =>
-                title.includes(keyword?.toLowerCase()) ||
-                description.includes(keyword?.toLowerCase()) ||
-                link.includes(keyword?.toLowerCase())
+                title?.includes(keyword?.toLowerCase()) ||
+                description?.includes(keyword?.toLowerCase()) ||
+                link?.includes(keyword?.toLowerCase())
             )
           : true;
-      return (title.includes(queryLower) || description.includes(queryLower) || author.includes(queryLower)) && categoryMatch;
+      return (
+        (title?.includes(queryLower) ||
+          description?.includes(queryLower) ||
+          author?.includes(queryLower)) &&
+        categoryMatch
+      );
     });
     filteredItems.forEach((item, index) => {
       item.urlToImage = thumbnails[index] || null;

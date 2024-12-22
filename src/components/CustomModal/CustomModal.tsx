@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from './customModal.module.css';
 
-const CustomModal = ({ isOpen, children }: any) => {
+interface CustomModalProps {
+  isOpen: boolean;
+  children: React.ReactNode;
+}
+
+const CustomModal = ({ isOpen, children }: CustomModalProps) => {
   if (!isOpen) return null;
 
   return (

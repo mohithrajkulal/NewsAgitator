@@ -70,10 +70,10 @@ export const DATES = [
 // No articles found
 
 export const NO_NEWS = 'No articles found';
-export const NO_PREFERENCES = "You haven't set any preferences yet. You can set them using the settings icon in the top-left corner of the navbar";
+export const NO_PREFERENCES =
+  "You haven't set any preferences yet. You can set them using the settings icon in the top-left corner of the navbar";
 export const PREVIOUS = 'Previous';
 export const NEXT = 'Next';
-
 
 // API SERVICE
 
@@ -84,3 +84,9 @@ export const categoryKeywords = {
   science: ['science', 'research', 'discovery'],
   sports: ['sports', 'sport', 'football', 'basketball', 'golf'],
 };
+
+export const TIMESTAMP_KEY = 'storage_timestamp';
+export const CLEAR_PREFERENCES = '* Clear option will remove the data permanently';
+export const PREFERED_SOURCES = 'Select Prefered Sources';
+export const PREFERED_CATEGORIES = 'Select Prefered Categories';
+export const SELECT_PREFERENCES = 'Select Preferences';

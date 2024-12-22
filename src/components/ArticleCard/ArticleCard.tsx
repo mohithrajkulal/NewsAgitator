@@ -1,9 +1,10 @@
 import React from 'react';
 import moment from 'moment';
 import noImage from './../../assest/images/noImage.svg';
-import styles from './articleCard.module.css';
 import { getAuthor } from '../../utils';
 import { BY, PUBLISHED_AT, READ_MORE, SOURCE } from '../../constants';
+import MessageWithTooltip from '../MessageToolTip/MessageToolTip';
+import styles from './articleCard.module.css';
 
 const ArticleCard = ({ article }: any) => {
   return (
@@ -14,7 +15,7 @@ const ArticleCard = ({ article }: any) => {
       ) : (
         <img src={noImage} alt='noImage' className={styles.articleImage} />
       )}
-      <p className={styles.articleDescription}>{article.description}</p>
+      <MessageWithTooltip message={article?.description || ''} />
       <div className={styles.source}>
         <div className={styles.articleInfo}>
           <p className={styles.articleSource}>
