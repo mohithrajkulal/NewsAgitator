@@ -82,7 +82,9 @@ const FilterMenu = ({
         endDate = formatDate(lastDayLastMonth);
         break;
       case 'alltime':
-        return null;
+        startDate = '';
+        endDate = '';
+        break;
       default:
         break;
     }

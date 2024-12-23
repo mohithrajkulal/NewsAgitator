@@ -35,6 +35,8 @@ const HomePage = () => {
     category: 'home',
     source: 'All Sources',
     dateRange: {
+      startDate: '',
+      endDate: '',
       type: 'alltime',
     },
   });
@@ -73,11 +75,13 @@ const HomePage = () => {
     preferences && Array.isArray(parsedData) ? filterArticles(parsedData, preferences) : [];
 
   const filterByDate = (articles: any[]) => {
-    const { type } = filters.dateRange;
-    if (!type) return articles;
+    const { startDate, endDate, type } = filters?.dateRange || {};
+    if (!type || (!startDate && !endDate)) return articles;
     return articles.filter(article => {
       const articleDate = article.publishedAt.split('T')[0];
-      return articleDate;
+      const isAfterStartDate = startDate ? articleDate >= startDate : true;
+      const isBeforeEndDate = endDate ? articleDate <= endDate : true;
+      return isAfterStartDate && isBeforeEndDate;
     });
   };
 
