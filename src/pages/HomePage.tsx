@@ -264,7 +264,7 @@ const HomePage = () => {
                         checked={preferences?.category?.includes(category)}
                         onChange={e => handleCheckboxChange(e, category, 'category')}
                       />
-                      {category}
+                      {capitalizeFirstLetter(category)}
                     </label>
                   );
                 }
